@@ -14,19 +14,19 @@ define('REGION', 'XXXX');
 define('END_POINT', 'XXXX');
 define('FOLDER_NAME', 'XXXX');
 
-// Instantiate the S3 client
-$client = S3Client::factory(array(
-	'credentials' => array(
-		'key' => ACCESS_KEY,
-		'secret' => SECRET_KEY,
-	),
-	'region' => REGION,
-	'version' => 'latest',
-	'base_url' => END_POINT,
-));
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['post_image']) && $_FILES['post_image']['error'] == UPLOAD_ERR_OK) {
 	try {
+		// Instantiate the S3 client
+		$client = S3Client::factory(array(
+			'credentials' => array(
+				'key' => ACCESS_KEY,
+				'secret' => SECRET_KEY,
+			),
+			'region' => REGION,
+			'version' => 'latest',
+			'base_url' => END_POINT,
+		));
+
 		// Get image extension
 		$path = $_FILES['post_image']['name'];
 		$ext = pathinfo($path, PATHINFO_EXTENSION);
